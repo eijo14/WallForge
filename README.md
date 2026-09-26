@@ -78,14 +78,13 @@ git clone https://github.com/eijo14/wallforge.git
 cd wallforge
 pip install -e .
 python3 run.py
-
 ```
 
 ### Windows & macOS
 
 Platform-specific packaging configurations are included for Windows and macOS.
 
-See [INSTALL.md]and [BUILD.md] for installation and build instructions.
+See [INSTALL.md](INSTALL.md) and [BUILD.md](BUILD.md) for installation and build instructions.
 ---
 
 ## Keyboard Shortcuts
@@ -147,7 +146,7 @@ See [SECURITY.md](SECURITY.md) for the security policy and reporting process.
 WallForge includes regression tests covering providers, search, caching, previews, wallpaper setters, platform detection, source management, UI structure, themes, security controls, rotation, and custom providers.
 
 Run the test suite with:
-```markdown
+
 ```bash
 python3 -m unittest discover tests
 ```
