@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wallforge"
+version = "1.0.0"
+description = "Modern Pixel Wallpaper Engine & Multi-Source Desktop Background Manager"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Eijo Francis" }
+]
+keywords = [
+    "wallpaper", "desktop", "hyprland", "gnome", "kde", "sway", "windows",
+    "macos", "background", "wallhaven", "bing", "nasa", "openverse", "pixel-art"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: X11 Applications :: GTK",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Desktop Environment",
+    "Topic :: Multimedia :: Graphics :: Viewers",
+]
+dependencies = [
+    "requests>=2.32.3",
+    "Pillow>=10.3.0",
+    "PyGObject>=3.42.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyinstaller>=6.0",
+    "pytest>=7.0",
+]
+
+[project.scripts]
+wallforge = "wallpaper_engine.ui.app:main"
+personal-wallpaper-engine = "wallpaper_engine.ui.app:main"
+
+[project.urls]
+Homepage = "https://github.com/eijofrancis/wallforge"
+Repository = "https://github.com/eijofrancis/wallforge"
+Issues = "https://github.com/eijofrancis/wallforge/issues"

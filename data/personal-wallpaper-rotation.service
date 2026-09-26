@@ -1,0 +1,11 @@
+[Unit]
+Description=Personal Wallpaper Engine - Headless Rotation Service
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -c "from wallpaper_engine.core.cache_manager import CacheManager; from wallpaper_engine.core.source_manager import SourceManager; from wallpaper_engine.core.search_service import SearchAggregator; from wallpaper_engine.setters.detector import get_best_setter; from wallpaper_engine.core.rotation_service import RotationService; cm=CacheManager(); sm=SourceManager(); sa=SearchAggregator(sm); ws=get_best_setter(); rot=RotationService(sm, sa, cm, ws); rot.rotate_now()"
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

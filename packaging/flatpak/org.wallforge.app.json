@@ -1,0 +1,66 @@
+{
+  "app-id": "org.wallforge.app",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "46",
+  "sdk": "org.gnome.Sdk",
+  "command": "wallforge",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--share=network",
+    "--filesystem=xdg-pictures:rw",
+    "--filesystem=xdg-download:rw",
+    "--talk-name=org.freedesktop.portal.Desktop",
+    "--talk-name=org.freedesktop.Notifications"
+  ],
+  "modules": [
+    {
+      "name": "python3-pillow",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} pillow"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/source/p/pillow/pillow-10.3.0.tar.gz",
+          "sha256": "9d2456f140f10c66060c5a0890632b70f0744c80337c8e967a54a7c8136ff85c"
+        }
+      ]
+    },
+    {
+      "name": "python3-requests",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} requests"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/source/r/requests/requests-2.31.0.tar.gz",
+          "sha256": "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d279165e43eb49843"
+        }
+      ]
+    },
+    {
+      "name": "wallforge",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --no-deps --prefix=${FLATPAK_DEST} .",
+        "install -Dm644 packaging/metadata/org.wallforge.app.desktop ${FLATPAK_DEST}/share/applications/org.wallforge.app.desktop",
+        "install -Dm644 packaging/metadata/org.wallforge.app.metainfo.xml ${FLATPAK_DEST}/share/metainfo/org.wallforge.app.metainfo.xml",
+        "install -Dm644 packaging/icons/org.wallforge.app.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.wallforge.app.svg",
+        "install -Dm644 packaging/icons/wallforge_128x128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/org.wallforge.app.png",
+        "install -Dm644 packaging/icons/wallforge_256x256.png ${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/org.wallforge.app.png",
+        "install -Dm644 packaging/icons/wallforge_512x512.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/org.wallforge.app.png"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../.."
+        }
+      ]
+    }
+  ]
+}

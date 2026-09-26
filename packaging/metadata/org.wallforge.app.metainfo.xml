@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.wallforge.app</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>WallForge</name>
+  <summary>Modern Pixel Wallpaper Engine &amp; Multi-Source Desktop Background Manager</summary>
+  <description>
+    <p>
+      WallForge is a fast, responsive, and privacy-focused desktop wallpaper engine.
+      Featuring a distinctive Modern Pixel aesthetic with subtle retro-future touches,
+      it aggregates wallpapers from multiple high-quality providers without telemetry or bloat.
+    </p>
+    <p>Key Features:</p>
+    <ul>
+      <li>Multi-source aggregation: ArchImg, Wallhaven, Bing Daily, NASA APOD, Openverse, Wikimedia Commons, GitHub curated walls, and user collections.</li>
+      <li>Instant previews: Progressive loading showing fast local thumbnails before full HD resolution.</li>
+      <li>Comprehensive search: Unified search across multiple providers simultaneously with instant filtering.</li>
+      <li>Cross-platform desktop integration: Native wallpaper setting backends for Linux (Hyprland, GNOME, KDE, Sway, XFCE, MATE, Cinnamon), Windows 10/11, and macOS.</li>
+      <li>Graceful degradation: Browse, search, preview, download, and favorite wallpapers even when native wallpaper changing is restricted.</li>
+      <li>Automatic rotation: Background periodic wallpaper cycling with offline fallback support.</li>
+      <li>Customizable pixel themes: Dark, Light, Midnight, and Pixel Green themes with personalized accents.</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">org.wallforge.app.desktop</launchable>
+  <url type="homepage">https://github.com/eijofrancis/wallforge</url>
+  <url type="bugtracker">https://github.com/eijofrancis/wallforge/issues</url>
+  <provides>
+    <binary>wallforge</binary>
+  </provides>
+  <releases>
+    <release version="1.0.0" date="2026-09-26">
+      <description>
+        <p>Initial stable multi-platform release of WallForge.</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1" />
+</component>

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# WallForge AppImage launcher script
+set -e
+
+APPDIR="$(dirname "$(readlink -f "${0}")")"
+
+export PATH="${APPDIR}/usr/bin:${PATH}"
+export LD_LIBRARY_PATH="${APPDIR}/usr/lib:${APPDIR}/usr/lib64:${LD_LIBRARY_PATH}"
+export PYTHONPATH="${APPDIR}/usr/lib/python3/site-packages:${APPDIR}:${PYTHONPATH}"
+export GI_TYPELIB_PATH="${APPDIR}/usr/lib/girepository-1.0:${APPDIR}/usr/lib64/girepository-1.0:${GI_TYPELIB_PATH}"
+export GSETTINGS_SCHEMA_DIR="${APPDIR}/usr/share/glib-2.0/schemas:${GSETTINGS_SCHEMA_DIR}"
+
+exec python3 "${APPDIR}/usr/bin/wallforge" "$@"

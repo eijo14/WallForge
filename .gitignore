@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Secrets & Configuration
+.env
+*.key
+credentials.json
+config.json
+
+# Cache & Local Files
+*.part
+*.tmp
+*.webp
+.cache/
+data/wallpapers/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
