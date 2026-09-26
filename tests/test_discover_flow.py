@@ -107,6 +107,9 @@ class TestDiscoverFlow(unittest.TestCase):
             base_cache_dir=self.temp_dir / "cache",
             base_data_dir=self.temp_dir / "data",
         )
+        # Mock thumbnail network fetching to prevent background threads from attempting real HTTP downloads
+        self.cache_mgr.fetch_and_cache_thumbnail = MagicMock(return_value=None)
+
         self.src_mgr = SourceManager(config_dir=self.temp_dir / "config")
         self.src_mgr._providers.clear()
 
@@ -121,8 +124,15 @@ class TestDiscoverFlow(unittest.TestCase):
             cache_manager=self.cache_mgr,
             wallpaper_setter=self.setter,
         )
+        self.windows = []
 
     def tearDown(self):
+        for win in getattr(self, "windows", []):
+            try:
+                win.shutdown()
+            except Exception:
+                pass
+        self._drain_glib_events()
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def _drain_glib_events(self, max_iterations=200):
@@ -142,6 +152,7 @@ class TestDiscoverFlow(unittest.TestCase):
             rotation_service=self.rot_service,
             wallpaper_setter=self.setter,
         )
+        self.windows.append(win)
 
         # Allow executor threads and GLib idle tasks to complete
         time.sleep(0.15)
@@ -175,6 +186,7 @@ class TestDiscoverFlow(unittest.TestCase):
             rotation_service=self.rot_service,
             wallpaper_setter=self.setter,
         )
+        self.windows.append(win)
 
         time.sleep(0.15)
         self._drain_glib_events()
@@ -196,6 +208,7 @@ class TestDiscoverFlow(unittest.TestCase):
             rotation_service=self.rot_service,
             wallpaper_setter=self.setter,
         )
+        self.windows.append(win)
 
         time.sleep(0.2)
         self._drain_glib_events()
@@ -214,6 +227,7 @@ class TestDiscoverFlow(unittest.TestCase):
             rotation_service=self.rot_service,
             wallpaper_setter=self.setter,
         )
+        self.windows.append(win)
 
         # While initial load is in progress, simulate scroll event
         win.discover_initial_loading = True

@@ -60,6 +60,7 @@ class MainWindow(Adw.ApplicationWindow):
         self._favorites: Dict[str, dict] = self._load_favorites()
 
         self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+        self.connect("close-request", self._on_close_request)
         self._search_debounce_id: Optional[int] = None
         self._active_filter = SearchFilter()
 
@@ -994,3 +995,15 @@ class MainWindow(Adw.ApplicationWindow):
         success = self.rotation_service.rotate_now()
         msg = "Random wallpaper applied!" if success else "Failed to apply random wallpaper."
         GLib.idle_add(self.show_toast, msg)
+
+    def _on_close_request(self, *args) -> bool:
+        self.shutdown()
+        return False
+
+    def shutdown(self) -> None:
+        """Shutdown background thread pools and pending tasks cleanly."""
+        try:
+            self._executor.shutdown(wait=False, cancel_futures=True)
+        except Exception:
+            pass
+

@@ -142,7 +142,7 @@ class UnsplashProvider(WallpaperProvider):
             download_location=links.get("download_location", ""),
         )
 
-    def track_download(self, wallpaper_or_location: Any) -> None:
+    def track_download(self, wallpaper_or_location: Any) -> Any:
         """Asynchronously notify Unsplash download endpoint as required by API guidelines."""
         dl_url = (
             wallpaper_or_location.download_location
@@ -150,7 +150,8 @@ class UnsplashProvider(WallpaperProvider):
             else str(wallpaper_or_location or "")
         )
         if dl_url:
-            report_unsplash_download(dl_url, self.config.get("access_key", "").strip())
+            return report_unsplash_download(dl_url, self.config.get("access_key", "").strip())
+        return None
 
 
     def get_featured(self, page: int = 1) -> List[Wallpaper]:
@@ -181,10 +182,10 @@ class UnsplashProvider(WallpaperProvider):
         return ["Photography", "Architecture", "Nature", "Textures"]
 
 
-def report_unsplash_download(download_location: str, access_key: str = "") -> None:
+def report_unsplash_download(download_location: str, access_key: str = "") -> Any:
     """Asynchronously notify Unsplash download endpoint according to official API terms."""
     if not download_location:
-        return
+        return None
 
     def _fire():
         try:
@@ -200,3 +201,4 @@ def report_unsplash_download(download_location: str, access_key: str = "") -> No
     import threading
     t = threading.Thread(target=_fire, daemon=True)
     t.start()
+    return t

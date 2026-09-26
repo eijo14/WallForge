@@ -250,14 +250,26 @@ class TestSecurityAuditRegressions(unittest.TestCase):
         # Test asynchronous download reporting
         with patch("urllib.request.urlopen") as mock_open, \
              patch("urllib.request.Request") as mock_req:
-            provider.track_download(wp)
-            # Give background thread a moment to fire
-            time.sleep(0.1)
+            t = provider.track_download(wp)
+            if hasattr(t, "join"):
+                t.join(timeout=2.0)
+            else:
+                time.sleep(0.1)
             mock_req.assert_called()
             # Verify URL and Client-ID header were sent
-            called_args = mock_req.call_args[0]
+            called_args = None
+            headers = {}
+            for call in mock_req.call_args_list:
+                if call[0] and "unsplash.com" in str(call[0][0]):
+                    called_args = call[0]
+                    headers = call[1].get("headers", {})
+                    break
+            if called_args is None and mock_req.call_args:
+                called_args = mock_req.call_args[0]
+                headers = mock_req.call_args[1].get("headers", {})
+
+            self.assertIsNotNone(called_args, "Unsplash download request was not called")
             self.assertEqual(called_args[0], "https://api.unsplash.com/photos/abc12345/download")
-            headers = mock_req.call_args[1].get("headers", {})
             self.assertEqual(headers.get("Authorization"), "Client-ID test_access_key_123")
 
     # =========================================================================

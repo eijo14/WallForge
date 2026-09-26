@@ -279,6 +279,13 @@ class CacheManager:
         # 3. Deduplicate concurrent requests for the same wallpaper
         import threading
         with self._preview_meta_lock:
+            existing_preview = self.get_preview_path(image_url)
+            if existing_preview:
+                return True, existing_preview, "Cached preview available."
+            existing_wp = self.get_wallpaper_path(image_url)
+            if existing_wp:
+                return True, existing_wp, "Full wallpaper already downloaded."
+
             if image_url in self._in_flight_previews:
                 event = self._in_flight_previews[image_url]
                 in_flight = True
@@ -364,8 +371,8 @@ class CacheManager:
             if temp_file.exists():
                 temp_file.unlink(missing_ok=True)
             with self._preview_meta_lock:
-                self._in_flight_previews.pop(image_url, None)
                 event.set()
+                self._in_flight_previews.pop(image_url, None)
 
     # -------------------------------------------------------------------------
     # Tier 4: Full Wallpapers Storage

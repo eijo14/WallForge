@@ -338,9 +338,11 @@ class TestThemeAndPreviewRegression(unittest.TestCase):
         test_url = "https://example.com/dedup_preview.jpg"
         network_calls = 0
 
-        def counting_urlopen(*args, **kwargs):
+        def counting_urlopen(req, *args, **kwargs):
             nonlocal network_calls
-            network_calls += 1
+            req_url = req.full_url if hasattr(req, "full_url") else str(req)
+            if "dedup_preview" in req_url:
+                network_calls += 1
             time.sleep(0.05)
             return self._mock_http_response(self.sample_img_bytes)
 
