@@ -10,16 +10,17 @@
 
 ## Highlights
 
-- ◈ **Multi-Source Aggregator**: Seamlessly search, filter, and discover wallpapers across multiple independent providers simultaneously without fear of single-point network failure.
+- ◈ **Multi-Source Aggregator**: Seamlessly search, filter, and discover wallpapers across multiple independent providers simultaneously, with provider failures isolated from the rest of the application.
 - ◈ **Modern Pixel / Retro-Tech Aesthetic**: Clean desktop interface with custom pixel-art motifs, scanline accents, responsive cards, and dynamic themes (**Dark**, **Light**, **Midnight**, and **Pixel Green**).
-- ◈ **Instant Two-Stage Previews**: Preview dialog opens in under 15ms by displaying cached 320px thumbnails immediately while fetching or decoding 1280px WebP previews in the background. Full-resolution originals are downloaded only when requested.
+- ◈ **Instant Two-Stage Previews**: Cached 320px thumbnails are displayed immediately while higher-quality 1280px WebP previews are fetched or generated in the background. Full-resolution originals are downloaded only when requested.
 - ◈ **Unified Cross-Platform Engine**:
   - **Linux**: Native backends for Hyprland (`hyprpaper`), GNOME (`gsettings`), KDE Plasma (`plasma-apply-wallpaperimage`), Sway (`swaymsg`/`swaybg`), XFCE (`xfconf-query`), Cinnamon, MATE, and Generic X11/Wayland (`swww`, `feh`, `nitrogen`).
   - **Windows 10 / 11**: Native Win32 `SystemParametersInfoW` with automatic display style and multi-monitor handling.
   - **macOS (Big Sur, Monterey, Ventura, Sonoma, Sequoia)**: Native AppleScript via `osascript` targeting all connected desktop spaces.
-- ◈ **Graceful Degradation**: Running on an unsupported OS or sandboxed environment? WallForge lets you browse, search, preview, favorite, and download wallpapers with 100% functionality even when desktop setting is restricted.
-- ◈ **Low RAM Footprint**: Engineered with a 3-tier cache (Metadata TTL, downscaled WebP thumbnails, and on-demand full wallpapers). Active RAM stays between 35–65 MB.
+- ◈ **Graceful Degradation**: On unsupported or restricted environments, WallForge still allows browsing, searching, previewing, favoriting, and downloading wallpapers even when desktop wallpaper setting is unavailable.
+- ◈ **Low RAM Footprint**: Engineered with a 3-tier cache consisting of metadata, downscaled WebP thumbnails, and on-demand full-resolution wallpapers.
 - ◈ **Offline-First & Auto-Rotation**: Browse previously cached collections and favorited wallpapers completely offline. Automatic periodic rotation seamlessly falls back to offline pools if disconnected.
+- - ◈ **Security-Focused**: Remote downloads are size-limited, URLs and paths are validated, subprocesses use execution timeouts, and provider failures are isolated.
 
 ---
 
@@ -28,15 +29,16 @@
 | Provider | Access Mode | Content Description |
 | :--- | :--- | :--- |
 | **ArchImg** | Public Manifest | Curated 4K minimalist Arch Linux and Hyprland ricing wallpapers. |
-| **Wallhaven** | Public API | The premier anime, general, people, 4K/8K, and ultrawide wallpaper archive. |
+| **Wallhaven** | Public API | Anime, general, people, 4K/8K, and ultrawide wallpaper collections. |
 | **Bing Daily** | Public JSON Feed | Daily landscape, architectural, and nature photography from Microsoft Bing. |
 | **NASA APOD** | Open NASA API | Daily astronomy, deep-space telescope, and nebula high-resolution imagery. |
-| **Openverse** | Public API | 700M+ Creative Commons and Public Domain cultural and artistic works. |
+| **Openverse** | Public API | Creative Commons and public-domain cultural and artistic works. |
 | **Wikimedia Commons** | MediaWiki API | Curated Featured Pictures and Pictures of the Day with full CC attribution. |
 | **GitHub Walls** | Raw Content | DenverCoder1's minimalist flat-art curated wallpaper collection. |
 | **Local Collections** | Filesystem | Scan and apply user wallpaper folders and personal archives. |
 | **Keyed Sources** | API Key (Optional) | Optional integration with Unsplash, Pexels, and Pixabay. |
 
+Provider availability may vary depending on network access, API credentials, provider availability, and third-party service policies.
 ---
 
 ## Platform Support Matrix
@@ -63,23 +65,27 @@ For deep details, see [PLATFORM_SUPPORT.md](PLATFORM_SUPPORT.md).
 
 See [INSTALL.md](INSTALL.md) for full instructions across all operating systems.
 
-### Linux (Flatpak)
-```bash
-flatpak install flathub org.wallforge.app
-flatpak run org.wallforge.app
-```
+### Linux (Packaging)
+
+WallForge includes packaging configurations for Flatpak, AppImage, and PyInstaller.
+
+See [BUILD.md](BUILD.md) for build instructions.
 
 ### Linux (Source / Virtualenv)
+
 ```bash
-git clone https://github.com/eijofrancis/wallforge.git
+git clone https://github.com/eijo14/wallforge.git
 cd wallforge
 pip install -e .
 python3 run.py
+
 ```
 
 ### Windows & macOS
-Prebuilt installers and portable bundles are available under [Releases](https://github.com/eijofrancis/wallforge/releases).
 
+Platform-specific packaging configurations are included for Windows and macOS.
+
+See [INSTALL.md](INSTALL.md) and [BUILD.md](BUILD.md) for installation and build instructions.
 ---
 
 ## Keyboard Shortcuts
@@ -114,6 +120,49 @@ wallforge/
 ```
 
 ---
+
+## Security & Privacy
+
+WallForge is designed to safely handle remote wallpaper sources and minimize unnecessary local resource usage.
+
+Security measures include:
+
+- Bounded remote downloads
+- HTTP/HTTPS URL validation
+- Private and loopback network protection
+- Path traversal protection
+- Subprocess execution timeouts
+- Image size and decompression-bomb protection
+- Secure temporary-file handling
+- Provider failure isolation
+- No bundled third-party wallpaper collection
+- Optional API credentials stored locally
+
+See [SECURITY.md](SECURITY.md) for the security policy and reporting process.
+
+---
+
+## Testing
+
+WallForge includes regression tests covering providers, search, caching, previews, wallpaper setters, platform detection, source management, UI structure, themes, security controls, rotation, and custom providers.
+
+Run the test suite with:
+
+```bash
+python3 -m unittest discover tests
+
+```
+
+### 12. Add Contributing before License
+
+```markdown
+## Contributing
+
+Contributions, bug reports, provider integrations, and improvements are welcome.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
+
+```
 
 ## License
 
