@@ -20,7 +20,7 @@
 - ◈ **Graceful Degradation**: On unsupported or restricted environments, WallForge still allows browsing, searching, previewing, favoriting, and downloading wallpapers even when desktop wallpaper setting is unavailable.
 - ◈ **Low RAM Footprint**: Engineered with a 3-tier cache consisting of metadata, downscaled WebP thumbnails, and on-demand full-resolution wallpapers.
 - ◈ **Offline-First & Auto-Rotation**: Browse previously cached collections and favorited wallpapers completely offline. Automatic periodic rotation seamlessly falls back to offline pools if disconnected.
-- - ◈ **Security-Focused**: Remote downloads are size-limited, URLs and paths are validated, subprocesses use execution timeouts, and provider failures are isolated.
+- ◈ **Security-Focused**: Remote downloads are size-limited, URLs and paths are validated, subprocesses use execution timeouts, and provider failures are isolated.
 
 ---
 
@@ -71,6 +71,9 @@ WallForge includes packaging configurations for Flatpak, AppImage, and PyInstall
 
 See [BUILD.md](BUILD.md) for build instructions.
 
+### Linux (Source / Virtualenv)
+
+```markdown
 ### Linux (Source / Virtualenv)
 
 ```bash
@@ -153,9 +156,6 @@ python3 -m unittest discover tests
 
 ```
 
-### 12. Add Contributing before License
-
-```markdown
 ## Contributing
 
 Contributions, bug reports, provider integrations, and improvements are welcome.
@@ -167,3 +167,5 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
 ## License
 
 Released under the [MIT License](LICENSE). Copyright © 2026 Eijo Francis.
+
+```
