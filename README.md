@@ -73,9 +73,6 @@ See [BUILD.md](BUILD.md) for build instructions.
 
 ### Linux (Source / Virtualenv)
 
-```markdown
-### Linux (Source / Virtualenv)
-
 ```bash
 git clone https://github.com/eijo14/wallforge.git
 cd wallforge
@@ -88,7 +85,7 @@ python3 run.py
 
 Platform-specific packaging configurations are included for Windows and macOS.
 
-See [INSTALL.md](INSTALL.md) and [BUILD.md](BUILD.md) for installation and build instructions.
+See [INSTALL.md]and [BUILD.md] for installation and build instructions.
 ---
 
 ## Keyboard Shortcuts
@@ -150,10 +147,9 @@ See [SECURITY.md](SECURITY.md) for the security policy and reporting process.
 WallForge includes regression tests covering providers, search, caching, previews, wallpaper setters, platform detection, source management, UI structure, themes, security controls, rotation, and custom providers.
 
 Run the test suite with:
-
+```markdown
 ```bash
 python3 -m unittest discover tests
-
 ```
 
 ## Contributing
@@ -162,10 +158,8 @@ Contributions, bug reports, provider integrations, and improvements are welcome.
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
 
-```
+---
 
 ## License
 
 Released under the [MIT License](LICENSE). Copyright © 2026 Eijo Francis.
-
-```
